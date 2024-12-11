@@ -7,7 +7,7 @@ export default function Sandbox() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowAsyncButton(true);
-    }, 1000);
+    }, 500);
 
     return () => clearTimeout(timer);
   }, []);

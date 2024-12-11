@@ -56,7 +56,7 @@ describe("03-search-by-role", () => {
     const buttonName = /bouton async/i;
 
     expect(
-      screen.getByRole("button", { name: buttonName }),
+      screen.queryByRole("button", { name: buttonName }),
     ).not.toBeInTheDocument();
 
     const asyncButton = await screen.findByRole("button", {
