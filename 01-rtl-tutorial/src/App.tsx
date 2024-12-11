@@ -1,3 +1,5 @@
+import Sandbox from "./tutorial/05-form-testing/Sandbox";
+
 export default function App() {
   return (
     <div className="p-8">
@@ -6,6 +8,7 @@ export default function App() {
         React Testing Library and Vitest travaillent ensemble pour fournir un
         environnement de test robuste.
       </p>
+      <Sandbox />
     </div>
   );
 }
