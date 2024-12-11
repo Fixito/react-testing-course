@@ -37,9 +37,9 @@ src/App.tsx
 ```tsx
 function App() {
   return (
-    <div className='p-8'>
-      <h1 className='font-bold text-2xl'>React Testing Library</h1>
-      <p className='mt-4 text-gray-700'>
+    <div className="p-8">
+      <h1 className="text-2xl font-bold">React Testing Library</h1>
+      <p className="mt-4 text-gray-700">
         React Testing Library and Vitest work together to provide a robust
         testing environment.
       </p>
@@ -52,17 +52,17 @@ export default App;
 Open the `App.test.tsx` file in the `src/__tests__` folder and take a look at the first test.
 
 ```tsx
-import { render, screen } from '@testing-library/react';
+import { render, screen } from "@testing-library/react";
 // Note: technically already available globally
-import { test, expect } from 'vitest';
-import App from '../App';
+import { test, expect } from "vitest";
+import App from "../App";
 
 // test is a function provided by Vitest that defines a single test case.
 // it takes two arguments: a string description of what the test should do, and a callback function containing the actual test code.
 // When you run your tests, each test block runs as a separate test, and the description helps identify which test passed or failed.
 // Note that `test` and `it` are aliases - they do exactly the same thing and can be used interchangeably.
 
-test('should render heading with correct text', () => {
+test("should render heading with correct text", () => {
   // Render the App component
   //mounts your React component into a simulated browser environment.
   render(<App />);
@@ -75,7 +75,7 @@ test('should render heading with correct text', () => {
 
   //`screen.getByText('Random Component')` is a function that searches for an element with the text "Random Component" in the virtual DOM.
 
-  const heading = screen.getByText('React Testing Library');
+  const heading = screen.getByText("React Testing Library");
 
   // Verify that the heading is present in the document
   // `expect` is an assertion function.is used to create assertions.
@@ -111,7 +111,7 @@ Matchers are methods that let you test values in different ways. They complete t
 Both code snippets test the same thing - the shorter version just skips the intermediate variable assignment and tests the element directly.
 
 ```tsx
-test('should render heading with correct text', () => {
+test("should render heading with correct text", () => {
   // Render the App component
   render(<App />);
 
@@ -123,7 +123,7 @@ test('should render heading with correct text', () => {
   // Verify that the heading is present in the document
   // expect(heading).toBeInTheDocument();
 
-  expect(screen.getByText('React Testing Library')).toBeInTheDocument();
+  expect(screen.getByText("React Testing Library")).toBeInTheDocument();
 });
 ```
 
@@ -136,27 +136,27 @@ For example, if you tell the test "1 + 1 should equal 3", it will fail because t
 You can also force a test to fail by throwing an error - this is like raising a red flag to say "stop, something's wrong here!". This is particularly useful when you want to explicitly mark a test as failed under certain conditions.
 
 ```tsx
-test('this empty test will pass', () => {
+test("this empty test will pass", () => {
   // Empty test - will pass!
 });
 
-test('this test will pass too', () => {
+test("this test will pass too", () => {
   const sum = 1 + 1;
   expect(sum).toBe(2);
   // fail
   expect(2 + 2).toBe(5);
 });
 
-test('this test will fail because the assertion fails', () => {
+test("this test will fail because the assertion fails", () => {
   expect(1 + 1).toBe(3);
 
-  const heading = screen.getByText('Angular Testing Library');
+  const heading = screen.getByText("Angular Testing Library");
   // Verify that the heading is present in the document
   expect(heading).toBeInTheDocument();
 });
 
-test('this test will fail because we throw an error', () => {
-  throw new Error('Forced failure');
+test("this test will fail because we throw an error", () => {
+  throw new Error("Forced failure");
 });
 ```
 
@@ -165,19 +165,19 @@ test('this test will fail because we throw an error', () => {
 The `describe` function is used to group related test cases into a test suite. It takes a descriptive string and a callback function containing the test cases. This organization helps maintain clear test structure and improves test readability. The first argument should be a descriptive string that clearly identifies what you're testing (like a component name or functionality), and the second argument is a callback function that contains your test cases. Below is an example of how to use `describe` to group related tests:
 
 ```tsx
-import { render, screen } from '@testing-library/react';
+import { render, screen } from "@testing-library/react";
 // Note: technically already available globally
-import { it, expect } from 'vitest';
-import App from '../App';
+import { it, expect } from "vitest";
+import App from "../App";
 
-describe('App Component', () => {
-  test('should render heading with correct text', () => {
+describe("App Component", () => {
+  test("should render heading with correct text", () => {
     render(<App />);
-    const heading = screen.getByText('React Testing Library');
+    const heading = screen.getByText("React Testing Library");
     expect(heading).toBeInTheDocument();
   });
 
-  test('should render paragraph with correct text', () => {
+  test("should render paragraph with correct text", () => {
     render(<App />);
     expect(screen.getByText(/library and vitest/i)).toBeInTheDocument();
   });
@@ -194,14 +194,14 @@ With that said `vitest` is really smart and add runs only the tests that have ch
 random.test.ts
 
 ```ts
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect } from "vitest";
 // notice `it` instead of `test`
-describe('basic arithmetic checks', () => {
-  it('1 + 1 equals 2', () => {
+describe("basic arithmetic checks", () => {
+  it("1 + 1 equals 2", () => {
     expect(1 + 1).toBe(2);
   });
 
-  it('2 * 2 equals 4', () => {
+  it("2 * 2 equals 4", () => {
     expect(2 * 2).toBe(4);
   });
 });
@@ -222,24 +222,24 @@ Alright, once we are clear with the major concepts and libraries, let's start pr
 - vite.config.ts
 
 ```ts
-import { defineConfig } from 'vitest/config';
-import react from '@vitejs/plugin-react';
+import { defineConfig } from "vitest/config";
+import react from "@vitejs/plugin-react";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   test: {
     globals: true,
-    environment: 'jsdom',
-    setupFiles: './vitest.setup.ts',
+    environment: "jsdom",
+    setupFiles: "./vitest.setup.ts",
     // Note: The following configuration block shows how to exclude specific directories from Vitest testing. Pay special attention to the exclude array which prevents test running in directories like node_modules, dist, cypress, and most importantly the final folder containing solutions.
     exclude: [
-      '**/node_modules/**',
-      '**/dist/**',
-      '**/cypress/**',
-      '**/final/**', // Add this line to exclude the final folder
-      '**/.{idea,git,cache,output,temp}/**',
-      '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress}.config.*',
+      "**/node_modules/**",
+      "**/dist/**",
+      "**/cypress/**",
+      "**/final/**", // Add this line to exclude the final folder
+      "**/.{idea,git,cache,output,temp}/**",
+      "**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress}.config.*",
     ],
   },
 });
@@ -252,7 +252,7 @@ export default defineConfig({
 - you can also copy from final/01-search-by-text/Sandbox.tsx
 
 ```tsx
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 function Sandbox() {
   const [showMessage, setShowMessage] = useState(false);
@@ -348,15 +348,15 @@ Single vs All
   - verify message exists in document after async operation
 
 ```tsx
-import { render, screen } from '@testing-library/react';
-import Sandbox from './Sandbox';
+import { render, screen } from "@testing-library/react";
+import Sandbox from "./Sandbox";
 
-describe('01-search-by-text', () => {
-  test('demonstrates different query methods', async () => {
+describe("01-search-by-text", () => {
+  test("demonstrates different query methods", async () => {
     render(<Sandbox />);
     screen.debug();
     // 1. getByText - exact string match
-    const heading = screen.getByText('React Testing Library Examples');
+    const heading = screen.getByText("React Testing Library Examples");
     expect(heading).toBeInTheDocument();
     expect(screen.getByText(/react/i)).toBeInTheDocument();
     // 2. getByText with regex - phone number
@@ -365,15 +365,15 @@ describe('01-search-by-text', () => {
     expect(phoneText).toBeInTheDocument();
 
     // 3. queryByText - element doesn't exist
-    const errorMessage = screen.queryByText('Error message');
+    const errorMessage = screen.queryByText("Error message");
     expect(errorMessage).not.toBeInTheDocument();
 
     // 4. getAllByText - multiple elements
-    const items = screen.getAllByText('Item 1');
+    const items = screen.getAllByText("Item 1");
     expect(items).toHaveLength(3);
 
     // 5. findByText - async element
-    const asyncMessage = await screen.findByText('Async message');
+    const asyncMessage = await screen.findByText("Async message");
     expect(asyncMessage).toBeInTheDocument();
   });
 });
@@ -400,11 +400,11 @@ Key benefits of TDD include:
 - test whether heading renders correctly
 
 ```tsx
-import { render, screen } from '@testing-library/react';
-import Sandbox from './Sandbox';
+import { render, screen } from "@testing-library/react";
+import Sandbox from "./Sandbox";
 
-describe('02-tdd-example', () => {
-  test('should render header', () => {
+describe("02-tdd-example", () => {
+  test("should render header", () => {
     render(<Sandbox />);
     const heading = screen.getByText(/testing/i);
     expect(heading).toBeInTheDocument();
@@ -442,7 +442,7 @@ export default Sandbox;
 ./src/tutorial/03-search-by-role/Sandbox.tsx
 
 ```tsx
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 const Sandbox = () => {
   const [showAsyncButton, setShowAsyncButton] = useState(false);
@@ -460,15 +460,15 @@ const Sandbox = () => {
   return (
     <div>
       <nav>
-        <a href='/'>Home</a>
-        <a href='/about'>About</a>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
       </nav>
 
       {/* Headings */}
       <h1>Main Heading</h1>
       <h2>Subheading</h2>
 
-      <img src='example.jpg' alt='Example' />
+      <img src="example.jpg" alt="Example" />
 
       {/* Regular buttons */}
       <button>Click me</button>
@@ -503,7 +503,7 @@ getByRole, queryByRole, findByRole, getAllByRole, queryAllByRole, findAllByRole
 ### 1. getBy... Methods
 
 ```typescript
-const button = screen.getByRole('button');
+const button = screen.getByRole("button");
 ```
 
 - Returns a single element
@@ -514,7 +514,7 @@ const button = screen.getByRole('button');
 ### 2. queryBy... Methods
 
 ```typescript
-const button = screen.queryByRole('button');
+const button = screen.queryByRole("button");
 ```
 
 - Returns a single element
@@ -525,7 +525,7 @@ const button = screen.queryByRole('button');
 ### 3. findBy... Methods
 
 ```typescript
-const button = await screen.findByRole('button');
+const button = await screen.findByRole("button");
 ```
 
 - Returns a Promise that resolves to a single element
@@ -536,7 +536,7 @@ const button = await screen.findByRole('button');
 ### 4. getAllBy... Methods
 
 ```typescript
-const buttons = screen.getAllByRole('button');
+const buttons = screen.getAllByRole("button");
 ```
 
 - Returns an array of elements
@@ -547,7 +547,7 @@ const buttons = screen.getAllByRole('button');
 ### 5. queryAllBy... Methods
 
 ```typescript
-const buttons = screen.queryAllByRole('button');
+const buttons = screen.queryAllByRole("button");
 ```
 
 - Returns an array of elements
@@ -558,7 +558,7 @@ const buttons = screen.queryAllByRole('button');
 ### 6. findAllBy... Methods
 
 ```typescript
-const buttons = await screen.findAllByRole('button');
+const buttons = await screen.findAllByRole("button");
 ```
 
 - Returns a Promise that resolves to an array of elements
@@ -606,67 +606,67 @@ The key is choosing the right query method based on your testing needs:
 ./src/tutorial/03-search-by-role/Sandbox.test.tsx
 
 ```tsx
-import { render, screen } from '@testing-library/react';
-import Sandbox from './Sandbox';
-import { logRoles } from '@testing-library/react';
-describe('Sandbox Component', () => {
-  test('renders nav and  navigation links', () => {
+import { render, screen } from "@testing-library/react";
+import Sandbox from "./Sandbox";
+import { logRoles } from "@testing-library/react";
+describe("Sandbox Component", () => {
+  test("renders nav and  navigation links", () => {
     const { container } = render(<Sandbox />);
-    expect(screen.getByRole('navigation')).toBeInTheDocument();
+    expect(screen.getByRole("navigation")).toBeInTheDocument();
     // getByRole throws an error if there are multiple elements with the same role
     // two options:provide name or getAllByRole (returns a list)
     logRoles(container);
 
-    expect(screen.getByRole('link', { name: 'Home' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'About' })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Home" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "About" })).toBeInTheDocument();
   });
 
-  test('renders headings with correct hierarchy', () => {
+  test("renders headings with correct hierarchy", () => {
     render(<Sandbox />);
 
     expect(
-      screen.getByRole('heading', { name: 'Main Heading', level: 1 })
+      screen.getByRole("heading", { name: "Main Heading", level: 1 }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('heading', { name: 'Subheading', level: 2 })
+      screen.getByRole("heading", { name: "Subheading", level: 2 }),
     ).toBeInTheDocument();
   });
 
-  test('renders image with alt text', () => {
+  test("renders image with alt text", () => {
     render(<Sandbox />);
 
-    expect(screen.getByRole('img', { name: 'Example' })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: "Example" })).toBeInTheDocument();
   });
 
-  test('renders initial buttons', () => {
+  test("renders initial buttons", () => {
     render(<Sandbox />);
 
     expect(
-      screen.getByRole('button', { name: 'Click me' })
+      screen.getByRole("button", { name: "Click me" }),
     ).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Submit' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Submit" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Cancel" })).toBeInTheDocument();
   });
 
-  test('error button is not initially visible', () => {
+  test("error button is not initially visible", () => {
     render(<Sandbox />);
 
     expect(
-      screen.queryByRole('button', { name: 'Error' })
+      screen.queryByRole("button", { name: "Error" }),
     ).not.toBeInTheDocument();
   });
 
-  test('async button appears after delay', async () => {
+  test("async button appears after delay", async () => {
     render(<Sandbox />);
 
     // Button should not be present initially
     expect(
-      screen.queryByRole('button', { name: 'Async Button' })
+      screen.queryByRole("button", { name: "Async Button" }),
     ).not.toBeInTheDocument();
 
     // Wait for button to appear using findByRole
-    const asyncButton = await screen.findByRole('button', {
-      name: 'Async Button',
+    const asyncButton = await screen.findByRole("button", {
+      name: "Async Button",
     });
     expect(asyncButton).toBeInTheDocument();
   });
@@ -694,9 +694,9 @@ It's worth noting that `userEvent` is actually built on top of `fireEvent`. Whil
 src/tutorial/04-user-interactions/Sandbox.tsx
 
 ```tsx
-import { useState } from 'react';
-import { FaHeart } from 'react-icons/fa';
-import { FaRegHeart } from 'react-icons/fa';
+import { useState } from "react";
+import { FaHeart } from "react-icons/fa";
+import { FaRegHeart } from "react-icons/fa";
 
 const Sandbox = () => {
   const [count, setCount] = useState(0);
@@ -715,17 +715,17 @@ const Sandbox = () => {
   };
 
   return (
-    <div className='p-8 text-center'>
-      <h2 className='text-2xl font-bold mb-4'>Count: {count}</h2>
+    <div className="p-8 text-center">
+      <h2 className="mb-4 text-2xl font-bold">Count: {count}</h2>
       <button
         onClick={handleIncrease}
-        className='bg-blue-500 text-white px-4 py-2 rounded mr-2'
+        className="mr-2 rounded bg-blue-500 px-4 py-2 text-white"
       >
         Increase
       </button>
       <button
         onClick={handleDecrease}
-        className='bg-red-500 text-white px-4 py-2 rounded'
+        className="rounded bg-red-500 px-4 py-2 text-white"
       >
         Decrease
       </button>
@@ -733,16 +733,16 @@ const Sandbox = () => {
         {isLiked ? (
           <button
             onClick={handleToggleLike}
-            className='block mx-auto text-2xl text-red-500 mt-16'
-            aria-label='like button'
+            className="mx-auto mt-16 block text-2xl text-red-500"
+            aria-label="like button"
           >
             <FaHeart />
           </button>
         ) : (
           <button
             onClick={handleToggleLike}
-            className='block mx-auto text-2xl text-red-500 mt-16'
-            aria-label='unlike button'
+            className="mx-auto mt-16 block text-2xl text-red-500"
+            aria-label="unlike button"
           >
             <FaRegHeart />
           </button>
@@ -775,19 +775,19 @@ export default Sandbox;
 src/tutorial/04-user-interactions/Sandbox.test.tsx
 
 ```tsx
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent } from "@testing-library/react";
 // need to install as separate package
 // "npm install @testing-library/user-event"
 // something we will cover/do in the next chapter (not required for this chapter)
-import userEvent from '@testing-library/user-event';
-import Sandbox from './Sandbox';
+import userEvent from "@testing-library/user-event";
+import Sandbox from "./Sandbox";
 
-describe('04-user-interactions', () => {
-  test('should increment and decrement count using fireEvent (legacy approach)', () => {
+describe("04-user-interactions", () => {
+  test("should increment and decrement count using fireEvent (legacy approach)", () => {
     render(<Sandbox />);
 
-    const increaseButton = screen.getByRole('button', { name: /increase/i });
-    const decreaseButton = screen.getByRole('button', { name: /decrease/i });
+    const increaseButton = screen.getByRole("button", { name: /increase/i });
+    const decreaseButton = screen.getByRole("button", { name: /decrease/i });
 
     expect(screen.getByText(/count: 0/i)).toBeInTheDocument();
     // Using fireEvent (legacy way)
@@ -804,12 +804,12 @@ describe('04-user-interactions', () => {
   // 3. It handles edge cases better (like keyboard navigation)
   // 4. It's more maintainable and future-proof
 
-  test('should increment and decrement count using userEvent', async () => {
+  test("should increment and decrement count using userEvent", async () => {
     render(<Sandbox />);
     const user = userEvent.setup();
 
-    const increaseButton = screen.getByRole('button', { name: /increase/i });
-    const decreaseButton = screen.getByRole('button', { name: /decrease/i });
+    const increaseButton = screen.getByRole("button", { name: /increase/i });
+    const decreaseButton = screen.getByRole("button", { name: /decrease/i });
 
     // Initial count should be 0
     expect(screen.getByText(/count: 0/i)).toBeInTheDocument();
@@ -822,25 +822,25 @@ describe('04-user-interactions', () => {
     expect(screen.getByText(/count: 0/i)).toBeInTheDocument();
   });
 
-  it('toggles between unlike and like buttons when clicked', async () => {
+  it("toggles between unlike and like buttons when clicked", async () => {
     const user = userEvent.setup();
     render(<Sandbox />);
 
     // Initially shows unlike button (outline heart)
-    const unlikeButton = screen.getByRole('button', { name: 'unlike button' });
+    const unlikeButton = screen.getByRole("button", { name: "unlike button" });
     expect(unlikeButton).toBeInTheDocument();
     expect(
-      screen.queryByRole('button', { name: 'like button' })
+      screen.queryByRole("button", { name: "like button" }),
     ).not.toBeInTheDocument();
 
     // Click unlike button
     await user.click(unlikeButton);
 
     // Should now show like button (filled heart)
-    const likeButton = screen.getByRole('button', { name: 'like button' });
+    const likeButton = screen.getByRole("button", { name: "like button" });
     expect(likeButton).toBeInTheDocument();
     expect(
-      screen.queryByRole('button', { name: 'unlike button' })
+      screen.queryByRole("button", { name: "unlike button" }),
     ).not.toBeInTheDocument();
   });
 });
@@ -853,16 +853,16 @@ describe('04-user-interactions', () => {
   {isLiked ? (
     <button
       onClick={handleToggleLike}
-      className='block mx-auto text-2xl text-red-500 mt-16'
-      aria-label='like button'
+      className="mx-auto mt-16 block text-2xl text-red-500"
+      aria-label="like button"
     >
       <FaHeart />
     </button>
   ) : (
     <button
       onClick={handleToggleLike}
-      className='block mx-auto text-2xl text-red-500 mt-16'
-      aria-label='unlike button'
+      className="mx-auto mt-16 block text-2xl text-red-500"
+      aria-label="unlike button"
     >
       <FaRegHeart />
     </button>
@@ -924,23 +924,23 @@ Also, for this section, I recommend having your browser open since we'll want to
   - submit button
 
 ```tsx
-import { useState } from 'react';
-import validator from 'validator';
+import { useState } from "react";
+import validator from "validator";
 
-const labelStyles = 'block text-grey-700 font-medium mb-2';
-const inputStyles = 'w-full px-3 py-2 border border-gray-300 rounded-md';
+const labelStyles = "block text-grey-700 font-medium mb-2";
+const inputStyles = "w-full px-3 py-2 border border-gray-300 rounded-md";
 const buttonsStyles =
-  'w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600';
+  "w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600";
 
 const defaultState = {
-  email: '',
-  password: '',
-  confirmPassword: '',
+  email: "",
+  password: "",
+  confirmPassword: "",
 };
 
 const Sandbox = () => {
   const [signupInput, setSignupInput] = useState(defaultState);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -949,62 +949,62 @@ const Sandbox = () => {
   const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (!validator.isEmail(signupInput.email)) {
-      return setError('Invalid email');
+      return setError("Invalid email");
     }
     if (!validator.isLength(signupInput.password, { min: 5 })) {
-      return setError('Password must be at least 5 characters');
+      return setError("Password must be at least 5 characters");
     }
     if (signupInput.password !== signupInput.confirmPassword) {
-      return setError('Passwords do not match');
+      return setError("Passwords do not match");
     }
-    setError('');
+    setError("");
     setSignupInput(defaultState);
   };
 
   return (
-    <div className='container mx-auto max-w-md mt-10 p-6 bg-white rounded-lg shadow-md'>
-      <form className='space-y-4'>
+    <div className="container mx-auto mt-10 max-w-md rounded-lg bg-white p-6 shadow-md">
+      <form className="space-y-4">
         {/* email input */}
-        <div className='mb-3'>
-          <label htmlFor='email' className={labelStyles}>
+        <div className="mb-3">
+          <label htmlFor="email" className={labelStyles}>
             Email address
           </label>
           <input
-            type='email'
-            id='email'
+            type="email"
+            id="email"
             value={signupInput.email}
             onChange={handleChange}
             className={inputStyles}
           />
         </div>
         {/* password */}
-        <div className='mb-3'>
-          <label htmlFor='password' className={labelStyles}>
+        <div className="mb-3">
+          <label htmlFor="password" className={labelStyles}>
             Password
           </label>
           <input
-            type='password'
-            id='password'
+            type="password"
+            id="password"
             value={signupInput.password}
             onChange={handleChange}
             className={inputStyles}
           />
         </div>
         {/* confirm password */}
-        <div className='mb-3'>
-          <label htmlFor='confirmPassword' className={labelStyles}>
+        <div className="mb-3">
+          <label htmlFor="confirmPassword" className={labelStyles}>
             Confirm Password
           </label>
           <input
-            type='password'
-            id='confirmPassword'
+            type="password"
+            id="confirmPassword"
             value={signupInput.confirmPassword}
             onChange={handleChange}
             className={inputStyles}
           />
         </div>
-        {error && <p className='text-red-500 text-sm'>{error}</p>}
-        <button type='button' onClick={handleSubmit} className={buttonsStyles}>
+        {error && <p className="text-sm text-red-500">{error}</p>}
+        <button type="button" onClick={handleSubmit} className={buttonsStyles}>
           Submit
         </button>
       </form>
@@ -1015,41 +1015,41 @@ export default Sandbox;
 ```
 
 ```tsx
-import { render, screen, logRoles } from '@testing-library/react';
-import Sandbox from './Sandbox';
-import userEvent, { UserEvent } from '@testing-library/user-event';
+import { render, screen, logRoles } from "@testing-library/react";
+import Sandbox from "./Sandbox";
+import userEvent, { UserEvent } from "@testing-library/user-event";
 
-describe('05-form-testing', () => {
-  test('inputs should be initially empty', () => {
+describe("05-form-testing", () => {
+  test("inputs should be initially empty", () => {
     const { container } = render(<Sandbox />);
     screen.debug();
     logRoles(container);
-    const emailInputElement = screen.getByRole('textbox', { name: /email/i });
-    expect(emailInputElement).toHaveValue('');
+    const emailInputElement = screen.getByRole("textbox", { name: /email/i });
+    expect(emailInputElement).toHaveValue("");
 
-    const passwordInputElement = screen.getByLabelText('Password');
-    expect(passwordInputElement).toHaveValue('');
+    const passwordInputElement = screen.getByLabelText("Password");
+    expect(passwordInputElement).toHaveValue("");
 
     const confirmPasswordInputElement =
       screen.getByLabelText(/confirm password/i);
-    expect(confirmPasswordInputElement).toHaveValue('');
+    expect(confirmPasswordInputElement).toHaveValue("");
   });
-  test('should be able to type in the input', async () => {
+  test("should be able to type in the input", async () => {
     const user = userEvent.setup();
     render(<Sandbox />);
-    const emailInputElement = screen.getByRole('textbox', { name: /email/i });
-    await user.type(emailInputElement, 'test@test.com');
-    expect(emailInputElement).toHaveValue('test@test.com');
+    const emailInputElement = screen.getByRole("textbox", { name: /email/i });
+    await user.type(emailInputElement, "test@test.com");
+    expect(emailInputElement).toHaveValue("test@test.com");
 
-    const passwordInputElement = screen.getByLabelText('Password');
-    await user.type(passwordInputElement, 'secret');
-    expect(passwordInputElement).toHaveValue('secret');
+    const passwordInputElement = screen.getByLabelText("Password");
+    await user.type(passwordInputElement, "secret");
+    expect(passwordInputElement).toHaveValue("secret");
 
     const confirmPasswordInputElement =
       screen.getByLabelText(/confirm password/i);
 
-    await user.type(confirmPasswordInputElement, 'secret');
-    expect(confirmPasswordInputElement).toHaveValue('secret');
+    await user.type(confirmPasswordInputElement, "secret");
+    expect(confirmPasswordInputElement).toHaveValue("secret");
   });
 });
 ```
@@ -1057,21 +1057,21 @@ describe('05-form-testing', () => {
 ## Refactor
 
 ```tsx
-import { render, screen, logRoles } from '@testing-library/react';
-import Sandbox from './Sandbox';
-import userEvent, { UserEvent } from '@testing-library/user-event';
+import { render, screen, logRoles } from "@testing-library/react";
+import Sandbox from "./Sandbox";
+import userEvent, { UserEvent } from "@testing-library/user-event";
 
 const getFormElements = () => {
   const elements = {
-    emailInputElement: screen.getByRole('textbox', { name: /email/i }),
-    passwordInputElement: screen.getByLabelText('Password'),
+    emailInputElement: screen.getByRole("textbox", { name: /email/i }),
+    passwordInputElement: screen.getByLabelText("Password"),
     confirmPasswordInputElement: screen.getByLabelText(/confirm password/i),
-    submitButton: screen.getByRole('button', { name: /submit/i }),
+    submitButton: screen.getByRole("button", { name: /submit/i }),
   };
   return elements;
 };
 
-describe('05-form-testing', () => {
+describe("05-form-testing", () => {
   // Declare user variable at describe block level so it's accessible in all tests
   let user: UserEvent;
 
@@ -1083,7 +1083,7 @@ describe('05-form-testing', () => {
     render(<Sandbox />);
   });
 
-  test('inputs should be initially empty', () => {
+  test("inputs should be initially empty", () => {
     const { container } = render(<Sandbox />);
     screen.debug();
     logRoles(container);
@@ -1093,25 +1093,25 @@ describe('05-form-testing', () => {
       passwordInputElement,
       confirmPasswordInputElement,
     } = getFormElements();
-    expect(emailInputElement).toHaveValue('');
-    expect(passwordInputElement).toHaveValue('');
-    expect(confirmPasswordInputElement).toHaveValue('');
+    expect(emailInputElement).toHaveValue("");
+    expect(passwordInputElement).toHaveValue("");
+    expect(confirmPasswordInputElement).toHaveValue("");
   });
-  test('should be able to type in the input', async () => {
+  test("should be able to type in the input", async () => {
     const {
       emailInputElement,
       passwordInputElement,
       confirmPasswordInputElement,
     } = getFormElements();
 
-    await user.type(emailInputElement, 'test@test.com');
-    expect(emailInputElement).toHaveValue('test@test.com');
+    await user.type(emailInputElement, "test@test.com");
+    expect(emailInputElement).toHaveValue("test@test.com");
 
-    await user.type(passwordInputElement, 'secret');
-    expect(passwordInputElement).toHaveValue('secret');
+    await user.type(passwordInputElement, "secret");
+    expect(passwordInputElement).toHaveValue("secret");
 
-    await user.type(confirmPasswordInputElement, 'secret');
-    expect(confirmPasswordInputElement).toHaveValue('secret');
+    await user.type(confirmPasswordInputElement, "secret");
+    expect(confirmPasswordInputElement).toHaveValue("secret");
   });
 });
 ```
@@ -1139,7 +1139,7 @@ Also if you are interested, here are the other hooks that are available in Vites
 So depending on what you need to do, you can use the appropriate hook.
 
 ```tsx
-import { beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
+import { beforeAll, afterAll, beforeEach, afterEach } from "vitest";
 
 // Runs once before all tests
 beforeAll(() => {
@@ -1194,12 +1194,12 @@ Common use cases for each hook:
 ## Test Email Error
 
 ```tsx
-test('should show email error if email is invalid', async () => {
+test("should show email error if email is invalid", async () => {
   const { emailInputElement, submitButton } = getFormElements();
 
   expect(screen.queryByText(/invalid email/i)).not.toBeInTheDocument();
 
-  await user.type(emailInputElement, 'invalid');
+  await user.type(emailInputElement, "invalid");
   await user.click(submitButton);
 
   expect(screen.getByText(/invalid email/i)).toBeInTheDocument();
@@ -1209,20 +1209,20 @@ test('should show email error if email is invalid', async () => {
 ## Check Password Length
 
 ```tsx
-test('should show password error if password is less than 5 characters', async () => {
+test("should show password error if password is less than 5 characters", async () => {
   const { emailInputElement, passwordInputElement, submitButton } =
     getFormElements();
 
   expect(
-    screen.queryByText(/password must be at least 5 characters/i)
+    screen.queryByText(/password must be at least 5 characters/i),
   ).not.toBeInTheDocument();
 
-  await user.type(emailInputElement, 'test@test.com');
-  await user.type(passwordInputElement, 'abcd');
+  await user.type(emailInputElement, "test@test.com");
+  await user.type(passwordInputElement, "abcd");
   await user.click(submitButton);
 
   expect(
-    screen.getByText(/password must be at least 5 characters/i)
+    screen.getByText(/password must be at least 5 characters/i),
   ).toBeInTheDocument();
 });
 ```
@@ -1230,7 +1230,7 @@ test('should show password error if password is less than 5 characters', async (
 ## Verify Password Error
 
 ```tsx
-test('should show error if passwords do not match', async () => {
+test("should show error if passwords do not match", async () => {
   const {
     emailInputElement,
     passwordInputElement,
@@ -1239,9 +1239,9 @@ test('should show error if passwords do not match', async () => {
   } = getFormElements();
   expect(screen.queryByText(/passwords do not match/i)).not.toBeInTheDocument();
 
-  await user.type(emailInputElement, 'test@test.com');
-  await user.type(passwordInputElement, 'secret');
-  await user.type(confirmPasswordInputElement, 'notsecret');
+  await user.type(emailInputElement, "test@test.com");
+  await user.type(passwordInputElement, "secret");
+  await user.type(confirmPasswordInputElement, "notsecret");
   await user.click(submitButton);
 
   expect(screen.getByText(/passwords do not match/i)).toBeInTheDocument();
@@ -1251,26 +1251,26 @@ test('should show error if passwords do not match', async () => {
 ## Show No Error Message
 
 ```tsx
-test('valid inputs show no errors and clear fields', async () => {
+test("valid inputs show no errors and clear fields", async () => {
   const {
     emailInputElement,
     passwordInputElement,
     confirmPasswordInputElement,
     submitButton,
   } = getFormElements();
-  await user.type(emailInputElement, 'test@test.com');
-  await user.type(passwordInputElement, 'secret');
-  await user.type(confirmPasswordInputElement, 'secret');
+  await user.type(emailInputElement, "test@test.com");
+  await user.type(passwordInputElement, "secret");
+  await user.type(confirmPasswordInputElement, "secret");
   await user.click(submitButton);
 
   expect(screen.queryByText(/invalid email/i)).not.toBeInTheDocument();
   expect(
-    screen.queryByText(/password must be at least 5 characters/i)
+    screen.queryByText(/password must be at least 5 characters/i),
   ).not.toBeInTheDocument();
   expect(screen.queryByText(/passwords do not match/i)).not.toBeInTheDocument();
-  expect(emailInputElement).toHaveValue('');
-  expect(passwordInputElement).toHaveValue('');
-  expect(confirmPasswordInputElement).toHaveValue('');
+  expect(emailInputElement).toHaveValue("");
+  expect(passwordInputElement).toHaveValue("");
+  expect(confirmPasswordInputElement).toHaveValue("");
 });
 ```
 
@@ -1283,9 +1283,9 @@ Alright and at very end of the tutorial, let's put everything together and creat
 tutorial/06-reviews-app/Sandbox.tsx
 
 ```tsx
-import { useState } from 'react';
-import Form from './Form';
-import List from './List';
+import { useState } from "react";
+import Form from "./Form";
+import List from "./List";
 
 export type Review = {
   email: string;
@@ -1300,8 +1300,8 @@ const Sandbox = () => {
     setReviews([...reviews, review]);
   };
   return (
-    <div className='max-w-xl mx-auto p-8'>
-      <h1 className='text-2xl font-bold mb-8'>Reviews App</h1>
+    <div className="mx-auto max-w-xl p-8">
+      <h1 className="mb-8 text-2xl font-bold">Reviews App</h1>
       <Form onSubmit={addReview} />
       <List reviews={reviews} />
     </div>
@@ -1313,87 +1313,87 @@ export default Sandbox;
 tutorial/06-reviews-app/Form.tsx
 
 ```tsx
-import { useState, FormEvent } from 'react';
-import { Review } from './Sandbox';
+import { useState, FormEvent } from "react";
+import { Review } from "./Sandbox";
 
 type ReviewFormProps = {
   onSubmit: (review: Review) => void;
 };
 
 const ReviewForm = ({ onSubmit }: ReviewFormProps) => {
-  const [email, setEmail] = useState('');
-  const [rating, setRating] = useState('');
-  const [text, setText] = useState('');
-  const [textError, setTextError] = useState('');
+  const [email, setEmail] = useState("");
+  const [rating, setRating] = useState("");
+  const [text, setText] = useState("");
+  const [textError, setTextError] = useState("");
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (text.length >= 10) {
       const newReview = { email, rating, text };
       onSubmit(newReview);
-      setEmail('');
-      setRating('');
-      setText('');
-      setTextError('');
+      setEmail("");
+      setRating("");
+      setText("");
+      setTextError("");
     } else {
-      setTextError('Review must be at least 10 characters long');
+      setTextError("Review must be at least 10 characters long");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className='space-y-4 mb-8'>
+    <form onSubmit={handleSubmit} className="mb-8 space-y-4">
       <div>
-        <label htmlFor='email' className='block mb-2'>
+        <label htmlFor="email" className="mb-2 block">
           Email
         </label>
         <input
-          type='email'
-          id='email'
+          type="email"
+          id="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className='w-full border p-2 rounded'
+          className="w-full rounded border p-2"
           required
         />
       </div>
 
       <div>
-        <label htmlFor='rating' className='block mb-2'>
+        <label htmlFor="rating" className="mb-2 block">
           Rating
         </label>
         <select
-          id='rating'
+          id="rating"
           value={rating}
           onChange={(e) => setRating(e.target.value)}
-          className='w-full border p-2 rounded'
+          className="w-full rounded border p-2"
           required
         >
-          <option value=''>Select rating</option>
+          <option value="">Select rating</option>
           {[5, 4, 3, 2, 1].map((num) => (
             <option key={num} value={num}>
-              {num} star{num !== 1 ? 's' : ''}
+              {num} star{num !== 1 ? "s" : ""}
             </option>
           ))}
         </select>
       </div>
 
       <div>
-        <label htmlFor='text' className='block mb-2'>
+        <label htmlFor="text" className="mb-2 block">
           Your Review
         </label>
         <textarea
-          id='text'
+          id="text"
           value={text}
           onChange={(e) => setText(e.target.value)}
-          className='w-full border p-2 rounded'
+          className="w-full rounded border p-2"
           rows={4}
           required
         />
-        {textError && <p className='text-red-500 text-sm mt-1'>{textError}</p>}
+        {textError && <p className="mt-1 text-sm text-red-500">{textError}</p>}
       </div>
 
       <button
-        type='submit'
-        className='bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600'
+        type="submit"
+        className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
       >
         Submit Review
       </button>
@@ -1407,7 +1407,7 @@ export default ReviewForm;
 tutorial/06-reviews-app/List.tsx
 
 ```tsx
-import { Review } from './Sandbox';
+import { Review } from "./Sandbox";
 
 type ListProps = {
   reviews: Review[];
@@ -1415,18 +1415,18 @@ type ListProps = {
 
 const List = ({ reviews }: ListProps) => {
   return (
-    <div className='mt-8'>
-      <h2 className='text-xl font-bold mb-4'>Reviews</h2>
+    <div className="mt-8">
+      <h2 className="mb-4 text-xl font-bold">Reviews</h2>
       {reviews.length === 0 ? (
         <p>No reviews yet</p>
       ) : (
         reviews.map((review, index) => (
-          <article key={index} className='border p-4 rounded mb-4'>
-            <div className='font-bold'>{review.email}</div>
-            <div className='text-yellow-500'>
-              {'⭐'.repeat(Number(review.rating))}
+          <article key={index} className="mb-4 rounded border p-4">
+            <div className="font-bold">{review.email}</div>
+            <div className="text-yellow-500">
+              {"⭐".repeat(Number(review.rating))}
             </div>
-            <p className='mt-2'>{review.text}</p>
+            <p className="mt-2">{review.text}</p>
           </article>
         ))
       )}
@@ -1447,42 +1447,42 @@ export default List;
 List.test.tsx
 
 ```tsx
-import { render, screen } from '@testing-library/react';
-import { describe, test, expect } from 'vitest';
-import List from '../List';
-import { Review } from '../Sandbox';
+import { render, screen } from "@testing-library/react";
+import { describe, test, expect } from "vitest";
+import List from "../List";
+import { Review } from "../Sandbox";
 
 // Mock data is used to simulate real data that would typically come from an API or user input
 // This allows us to test our components in isolation without depending on external services
 const mockReviews: Review[] = [
   {
-    email: 'test@example.com',
-    rating: '4',
-    text: 'Great product!',
+    email: "test@example.com",
+    rating: "4",
+    text: "Great product!",
   },
   {
-    email: 'user@example.com',
-    rating: '5',
-    text: 'Excellent service',
+    email: "user@example.com",
+    rating: "5",
+    text: "Excellent service",
   },
 ];
 
 // show beforeEach example with props
 
-describe('List Component', () => {
-  test('renders heading', () => {
+describe("List Component", () => {
+  test("renders heading", () => {
     render(<List reviews={mockReviews} />);
     expect(
-      screen.getByRole('heading', { level: 2, name: /reviews/i })
+      screen.getByRole("heading", { level: 2, name: /reviews/i }),
     ).toBeInTheDocument();
   });
 
   test('displays "No reviews yet" when reviews array is empty', () => {
     render(<List reviews={[]} />);
-    expect(screen.getByText('No reviews yet')).toBeInTheDocument();
+    expect(screen.getByText("No reviews yet")).toBeInTheDocument();
   });
 
-  test('renders reviews correctly when provided', () => {
+  test("renders reviews correctly when provided", () => {
     render(<List reviews={mockReviews} />);
 
     // Check if both reviews are rendered
@@ -1490,7 +1490,7 @@ describe('List Component', () => {
       expect(screen.getByText(review.email)).toBeInTheDocument();
       expect(screen.getByText(review.text)).toBeInTheDocument();
       // Check if stars are rendered
-      const stars = '⭐'.repeat(Number(review.rating));
+      const stars = "⭐".repeat(Number(review.rating));
       expect(screen.getByText(stars)).toBeInTheDocument();
     });
   });
@@ -1501,16 +1501,16 @@ describe('List Component', () => {
 Form.test.tsx
 
 ```tsx
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { describe, test, expect, vi } from 'vitest';
-import ReviewForm from '../Form';
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { describe, test, expect, vi } from "vitest";
+import ReviewForm from "../Form";
 
 export const getFormElements = () => {
-  const emailInput = screen.getByRole('textbox', { name: /email/i });
-  const ratingSelect = screen.getByRole('combobox', { name: /rating/i });
-  const textArea = screen.getByRole('textbox', { name: /your review/i });
-  const submitButton = screen.getByRole('button', { name: /submit review/i });
+  const emailInput = screen.getByRole("textbox", { name: /email/i });
+  const ratingSelect = screen.getByRole("combobox", { name: /rating/i });
+  const textArea = screen.getByRole("textbox", { name: /your review/i });
+  const submitButton = screen.getByRole("button", { name: /submit review/i });
 
   return {
     emailInput,
@@ -1520,7 +1520,7 @@ export const getFormElements = () => {
   };
 };
 
-describe('ReviewForm', () => {
+describe("ReviewForm", () => {
   // Creates a mock function that will simulate the form submission handler
   const mockOnSubmit = vi.fn();
 
@@ -1532,17 +1532,17 @@ describe('ReviewForm', () => {
     mockOnSubmit.mockClear();
   });
 
-  test('renders form elements correctly', () => {
+  test("renders form elements correctly", () => {
     render(<ReviewForm onSubmit={mockOnSubmit} />);
     const { emailInput, ratingSelect, textArea, submitButton } =
       getFormElements();
-    expect(emailInput).toHaveValue('');
-    expect(ratingSelect).toHaveValue('');
-    expect(textArea).toHaveValue('');
+    expect(emailInput).toHaveValue("");
+    expect(ratingSelect).toHaveValue("");
+    expect(textArea).toHaveValue("");
     expect(submitButton).toBeInTheDocument();
   });
 
-  test('shows error message when review is too short', async () => {
+  test("shows error message when review is too short", async () => {
     const user = userEvent.setup();
     render(<ReviewForm onSubmit={mockOnSubmit} />);
 
@@ -1551,44 +1551,44 @@ describe('ReviewForm', () => {
     const { emailInput, ratingSelect, textArea, submitButton } =
       getFormElements();
 
-    await user.type(emailInput, 'test@example.com');
-    await user.selectOptions(ratingSelect, '5');
-    await user.type(textArea, 'Short');
+    await user.type(emailInput, "test@example.com");
+    await user.selectOptions(ratingSelect, "5");
+    await user.type(textArea, "Short");
     await user.click(submitButton);
 
     expect(
-      screen.getByText(/review must be at least 10 characters long/i)
+      screen.getByText(/review must be at least 10 characters long/i),
     ).toBeInTheDocument();
     expect(mockOnSubmit).not.toHaveBeenCalled();
   });
 
-  test('submits form with valid data', async () => {
+  test("submits form with valid data", async () => {
     const user = userEvent.setup();
     render(<ReviewForm onSubmit={mockOnSubmit} />);
 
     const { emailInput, ratingSelect, textArea, submitButton } =
       getFormElements();
 
-    await user.type(emailInput, 'test@example.com');
-    await user.selectOptions(ratingSelect, '5');
+    await user.type(emailInput, "test@example.com");
+    await user.selectOptions(ratingSelect, "5");
     await user.type(
       textArea,
-      'This is a valid review text that is long enough'
+      "This is a valid review text that is long enough",
     );
     await user.click(submitButton);
 
     // We can validate the form submission because mockOnSubmit is a mock function (vi.fn())
     // that keeps track of all calls made to it. This allows us to verify:
     expect(mockOnSubmit).toHaveBeenCalledWith({
-      email: 'test@example.com',
-      rating: '5',
-      text: 'This is a valid review text that is long enough',
+      email: "test@example.com",
+      rating: "5",
+      text: "This is a valid review text that is long enough",
     });
 
     // Check if form is reset after submission
-    expect(emailInput).toHaveValue('');
-    expect(ratingSelect).toHaveValue('');
-    expect(textArea).toHaveValue('');
+    expect(emailInput).toHaveValue("");
+    expect(ratingSelect).toHaveValue("");
+    expect(textArea).toHaveValue("");
   });
 });
 ```
@@ -1603,22 +1603,22 @@ So far all our examples where unit tests, because we were testing the individual
   This is an integration test, because it tests the interaction between the Form and List components.
 
 ```tsx
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import Sandbox from '../Sandbox';
-import { getFormElements } from './Form.test.tsx';
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import Sandbox from "../Sandbox";
+import { getFormElements } from "./Form.test.tsx";
 
-describe('Reviews App', () => {
+describe("Reviews App", () => {
   // Basic rendering test
-  test('renders Reviews App title', () => {
+  test("renders Reviews App title", () => {
     render(<Sandbox />);
     expect(
-      screen.getByRole('heading', { level: 1, name: /reviews app/i })
+      screen.getByRole("heading", { level: 1, name: /reviews app/i }),
     ).toBeInTheDocument();
   });
 
   // Integration test for adding a review
-  test('adds a new review when form is submitted', async () => {
+  test("adds a new review when form is submitted", async () => {
     const user = userEvent.setup();
     render(<Sandbox />);
 
@@ -1627,36 +1627,36 @@ describe('Reviews App', () => {
       getFormElements();
 
     // Fill out the form
-    await user.type(emailInput, 'test@example.com');
-    await user.selectOptions(ratingSelect, '5');
-    await user.type(textArea, 'Great product!');
+    await user.type(emailInput, "test@example.com");
+    await user.selectOptions(ratingSelect, "5");
+    await user.type(textArea, "Great product!");
 
     // Submit the form
     await user.click(submitButton);
 
     // Verify the review appears in the list
-    expect(screen.getByText('test@example.com')).toBeInTheDocument();
-    expect(screen.getByText('Great product!')).toBeInTheDocument();
-    expect(screen.getByText('⭐'.repeat(5))).toBeInTheDocument();
+    expect(screen.getByText("test@example.com")).toBeInTheDocument();
+    expect(screen.getByText("Great product!")).toBeInTheDocument();
+    expect(screen.getByText("⭐".repeat(5))).toBeInTheDocument();
   });
-  test('alternative - adds a new review when form is submitted', async () => {
+  test("alternative - adds a new review when form is submitted", async () => {
     const user = userEvent.setup();
     render(<Sandbox />);
 
-    const reviews = screen.queryAllByRole('article');
+    const reviews = screen.queryAllByRole("article");
     expect(reviews).toHaveLength(0);
     // Get form elements
     const { emailInput, ratingSelect, textArea, submitButton } =
       getFormElements();
 
     // Fill out and submit form
-    await user.type(emailInput, 'test@example.com');
-    await user.selectOptions(ratingSelect, '5');
-    await user.type(textArea, 'Great product!');
+    await user.type(emailInput, "test@example.com");
+    await user.selectOptions(ratingSelect, "5");
+    await user.type(textArea, "Great product!");
     await user.click(submitButton);
 
     // Verify one new review was added
-    expect(screen.getAllByRole('article')).toHaveLength(1);
+    expect(screen.getAllByRole("article")).toHaveLength(1);
   });
 });
 ```
