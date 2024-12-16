@@ -1,9 +1,9 @@
 import Form from "./components/Form";
 import List from "./components/List";
-import { useFlowManager } from "./utils";
+import { useFlowContext } from "./FlowContext";
 
 export default function App() {
-  const { items, handleAddItem, handleDeleteItem } = useFlowManager();
+  const { items, handleAddItem, handleDeleteItem } = useFlowContext();
 
   return (
     <main className="container mx-auto max-w-2xl p-4">

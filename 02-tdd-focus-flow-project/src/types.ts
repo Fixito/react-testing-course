@@ -1,4 +1,4 @@
-export type ItemCategory = "urgent" | "important" | "normal" | "bas";
+export type ItemCategory = "urgent" | "important" | "normal" | "low";
 
 export interface Item {
   id: string;

@@ -1,4 +1,5 @@
 import { Item } from "../types";
+import ItemCard from "./ItemCard";
 
 interface ItemProps {
   items: Item[];
@@ -6,7 +7,14 @@ interface ItemProps {
 }
 
 export default function List({ items, onDelete }: ItemProps) {
-  console.log(items);
-
-  return <div>List</div>;
+  return (
+    <section className="mt-8">
+      <h2 className="mb-2 text-xl font-semibold">Panneau d'affichage</h2>
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {items.map((item) => {
+          return <ItemCard key={item.id} {...item} onDelete={onDelete} />;
+        })}
+      </div>
+    </section>
+  );
 }
